@@ -1,7 +1,2 @@
-# Comandos úteis
+# Projeto Visão Computacional - Deep Reinforcement Learning 
 
-## Ativar o tensorboard
-
-```bash
-tensorboard --logdir ./car_racing_ppo_tensorboard/
-```
