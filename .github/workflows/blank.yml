@@ -1,0 +1,39 @@
+name: Update Last Commit Badge
+
+on:
+  push:
+    branches:
+      - main # Ou a branch principal do seu projeto
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Faz o checkout do código do seu repositório
+      - name: Check out a repo
+        uses: actions/checkout@v4
+
+      # 2. Pega a mensagem curta (assunto) do último commit
+      - name: Get last commit message
+        id: last_commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
+      # 3. Cria a nova badge e atualiza o README
+      - name: Update README with last commit message
+        run: |
+          # Formata a mensagem para ser usada na URL da badge (substitui espaços por %20, etc.)
+          COMMIT_MSG_URL_ENCODED=$(echo "${{ steps.last_commit.outputs.message }}" | sed 's/ /%20/g' | sed 's/-/--/g')
+
+          # Monta o Markdown completo para a nova badge
+          BADGE_MARKDOWN="[![Último Commit](https://img.shields.io/badge/commit-${COMMIT_MSG_URL_ENCODED}-blue.svg)](https://github.com/${{ github.repository }}/commits/main)"
+
+          # Usa o 'sed' para encontrar os marcadores e substituir o conteúdo entre eles
+          # O comando busca a linha que começa com e substitui ela e a próxima linha
+          sed -i "//c\\${BADGE_MARKDOWN}" README.md
+
+      # 4. Faz o commit das mudanças no arquivo README.md
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update last commit badge'
+          file_pattern: 'README.md'
