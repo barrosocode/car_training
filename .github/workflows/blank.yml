@@ -21,15 +21,22 @@ jobs:
       # 3. Cria a nova badge e atualiza o README
       - name: Update README with last commit message
         run: |
-          # Formata a mensagem para ser usada na URL da badge (substitui espaços por %20, etc.)
-          COMMIT_MSG_URL_ENCODED=$(echo "${{ steps.last_commit.outputs.message }}" | sed 's/ /%20/g' | sed 's/-/--/g')
+          # Pega a mensagem do commit da etapa anterior
+          COMMIT_MSG="${{ steps.last_commit.outputs.message }}"
+
+          # Prepara a mensagem para a URL da badge:
+          # 1. Substitui hífens por dois hífens (requisito do shields.io)
+          # 2. Substitui espaços por %20 (padrão de URL)
+          # 3. Substitui underscores por dois underscores (requisito do shields.io)
+          COMMIT_MSG_URL_ENCODED=$(echo "$COMMIT_MSG" | sed 's/-/--/g' | sed 's/_/__/g' | sed 's/ /%20/g')
 
           # Monta o Markdown completo para a nova badge
-          BADGE_MARKDOWN="[![Último Commit](https://img.shields.io/badge/commit-${COMMIT_MSG_URL_ENCODED}-blue.svg)](https://github.com/${{ github.repository }}/commits/main)"
-
-          # Usa o 'sed' para encontrar os marcadores e substituir o conteúdo entre eles
-          # O comando busca a linha que começa com e substitui ela e a próxima linha
-          sed -i "//c\\${BADGE_MARKDOWN}" README.md
+          NEW_BADGE="[![Último Commit](https://img.shields.io/badge/commit-${COMMIT_MSG_URL_ENCODED}-blue.svg)](https://github.com/${{ github.repository }}/commits/main)"
+          
+          # Encontra a linha que contém a badge antiga e a substitui pela nova.
+          # Usamos '|' como separador no sed para evitar conflitos com as '/' das URLs.
+          # Isso é muito mais seguro que a versão anterior.
+          sed -i "s|.*img.shields.io/badge/commit-.*|${NEW_BADGE}|" README.md
 
       # 4. Faz o commit das mudanças no arquivo README.md
       - name: Commit and push if changed
