@@ -1,3 +1,6 @@
+**🇧🇷 Português** | [🇺🇸 English](README.en.md)
+***
+
 # Aprendizado de Caminho
 *Deep Reinforcement Learning em Veículos Autônomos
 
