@@ -56,6 +56,7 @@ graph TD;
 
 
 # Resultados
+=lorem ipsum
 
 # Instalação
 ### 1. Pré-requisitos
