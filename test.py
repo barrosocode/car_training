@@ -4,7 +4,7 @@
 # from stable_baselines3 import PPO
 # from stable_baselines3.common.env_util import make_vec_env
 # from stable_baselines3.common.vec_env import VecFrameStack
-
+#teste
 # # --- Custom Wrapper para Terminar o Episódio na Grama ---
 # # ESTE WRAPPER DEVE SER IDÊNTICO AO USADO NO ARQUIVO DE TREINAMENTO.
 # class CustomCarRacingWrapper(Wrapper):

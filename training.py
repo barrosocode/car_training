@@ -6,7 +6,7 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.vec_env import VecFrameStack
 
-# --- Custom Wrapper para Terminar o Episódio na Grama ---
+#teste
 class CustomCarRacingWrapper(Wrapper):
     def __init__(self, env):
         super().__init__(env)
