@@ -56,7 +56,9 @@ graph TD;
 
 
 # Resultados
-=lorem ipsum
+A experimentação foi conduzida em duas etapas sequenciais de treinamento, visando a otimização iterativa da política do agente.
+- Fase 1 - Treinamento Exploratório: A fase inicial de treinamento produziu modelos promissores, com destaque para os checkpoints salvos em 1.500.000, 1.600.000 e 2.800.000 passos. Apesar de alcançarem pontuações parciais elevadas, esses modelos apresentavam uma falha crítica: a tendência a entrar em ciclos de comportamento sub-ótimo. Tais ciclos impediam a exploração de políticas mais eficazes, resultando em um platô no desempenho.
+- Fase 2 - Treinamento Refinado: Para solucionar o problema de estagnação, a segunda fase introduziu modificações metodológicas. Foram ajustados os hiperparâmetros relacionados à exploração e à função de recompensa, adicionando termos que penalizam a falta de progresso. Os agentes resultantes desta fase demonstraram uma capacidade superior de evitar os ciclos de erro, levando a um aprendizado mais robusto e a um desempenho final significativamente melhor.
 
 # Instalação
 ### 1. Pré-requisitos
